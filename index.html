@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintertræning Golf 2025/26</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a4d2e 0%, #2d5a3d 50%, #1a4d2e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid #d4af37;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .info-bar {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #2d5a3d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        .legend {
+            background: #fff8e1;
+            padding: 15px 30px;
+            border-bottom: 2px solid #ffd54f;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+
+        .legend-box.tilmeldt { background: #4caf50; }
+        .legend-box.frameldt { background: #f44336; }
+        .legend-box.ikke-svaret { background: #9e9e9e; }
+
+        .content {
+            padding: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .week-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .week-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .week-header {
+            border-bottom: 2px solid #4a7c59;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .week-date {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d5a3d;
+        }
+
+        .week-time {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 3px;
+        }
+
+        .participants {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .participant {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .participant:hover {
+            border-color: #2d5a3d;
+        }
+
+        .participant.tilmeldt {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .participant.frameldt {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .participant.ikke-svaret {
+            background: #f5f5f5;
+            color: #757575;
+        }
+
+        .participant-name {
+            font-weight: 500;
+        }
+
+        .participant-status {
+            font-size: 0.85em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛳ Vintertræning Golf 2025/26</h1>
+            <p>Onsdage kl. 19:00-20:00</p>
+        </div>
+
+        <div class="info-bar">
+            <div class="info-item">
+                <strong>📅 Periode</strong>
+                <span>19. nov 2025 - 1. apr 2026</span>
+            </div>
+            <div class="info-item">
+                <strong>🏌️ Træninger</strong>
+                <span id="total-sessions">19</span>
+            </div>
+            <div class="info-item">
+                <strong>👥 Deltagere</strong>
+                <span>9</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box tilmeldt"></div>
+                <span>Tilmeldt</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box frameldt"></div>
+                <span>Frameldt</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box ikke-svaret"></div>
+                <span>Ikke svaret</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="loading" id="loading">
+                Indlæser data... ⛳
+            </div>
+            <div class="week-grid" id="week-grid" style="display: none;">
+                <!-- Weeks will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // Configuration is loaded from config.js
+
+        const participants = [
+            'Jan', 'Torben', 'Jes', 'Kim', 
+            'Henrik', 'Morten', 'Thomas', 'Søren', 'Mystery guest'
+        ];
+
+        // Generate all Wednesdays from start to end date
+        function generateWednesdays(startDate, endDate) {
+            const wednesdays = [];
+            let current = new Date(startDate);
+            
+            // Find first Wednesday
+            while (current.getDay() !== 3) {
+                current.setDate(current.getDate() + 1);
+            }
+            
+            while (current <= endDate) {
+                wednesdays.push(new Date(current));
+                current.setDate(current.getDate() + 7);
+            }
+            
+            return wednesdays;
+        }
+
+        function formatDate(date) {
+            const months = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 
+                          'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+            return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function dateToKey(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Google Apps Script functions
+        async function loadData() {
+            try {
+                const url = `${CONFIG.appsScriptUrl}?action=read&t=${Date.now()}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Kunne ikke hente data fra Google Sheets');
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Kunne ikke indlæse data. Tjek din internetforbindelse.');
+                return {};
+            }
+        }
+
+        async function updateStatus(date, participant, newStatus) {
+            try {
+                const dateKey = dateToKey(date);
+                
+                const url = `${CONFIG.appsScriptUrl}?action=update&date=${dateKey}&participant=${encodeURIComponent(participant)}&status=${newStatus}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Kunne ikke gemme ændring');
+                }
+                
+                const result = await response.json();
+                
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Kunne ikke gemme ændring. Prøv igen.');
+                return false;
+            }
+        }
+
+        function renderWeeks(data) {
+            const startDate = new Date(2025, 10, 19); // Nov 19, 2025
+            const endDate = new Date(2026, 3, 1);     // Apr 1, 2026
+            const wednesdays = generateWednesdays(startDate, endDate);
+            
+            document.getElementById('total-sessions').textContent = wednesdays.length;
+            
+            const grid = document.getElementById('week-grid');
+            grid.innerHTML = '';
+            
+            wednesdays.forEach((date, index) => {
+                const dateKey = dateToKey(date);
+                const weekData = data[dateKey] || {};
+                
+                const card = document.createElement('div');
+                card.className = 'week-card';
+                
+                let tilmeldt = 0;
+                let frameldt = 0;
+                let ikkeSvaret = 0;
+                
+                const participantHTML = participants.map(name => {
+                    const status = weekData[name] || 'ikke-svaret';
+                    
+                    if (status === 'tilmeldt') tilmeldt++;
+                    else if (status === 'frameldt') frameldt++;
+                    else ikkeSvaret++;
+                    
+                    const statusText = {
+                        'tilmeldt': '✓',
+                        'frameldt': '✗',
+                        'ikke-svaret': '?'
+                    }[status];
+                    
+                    return `
+                        <div class="participant ${status}" 
+                             onclick="toggleStatus('${dateKey}', '${name}', '${status}')">
+                            <span class="participant-name">${name}</span>
+                            <span class="participant-status">${statusText}</span>
+                        </div>
+                    `;
+                }).join('');
+                
+                card.innerHTML = `
+                    <div class="week-header">
+                        <div class="week-date">Onsdag ${formatDate(date)}</div>
+                        <div class="week-time">kl. 19:00-20:00</div>
+                    </div>
+                    <div class="participants">
+                        ${participantHTML}
+                    </div>
+                    <div class="stats">
+                        <span>✓ ${tilmeldt}</span>
+                        <span>✗ ${frameldt}</span>
+                        <span>? ${ikkeSvaret}</span>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            document.getElementById('loading').style.display = 'none';
+            grid.style.display = 'grid';
+        }
+
+        window.toggleStatus = async function(dateKey, participant, currentStatus) {
+            const statusCycle = {
+                'ikke-svaret': 'tilmeldt',
+                'tilmeldt': 'frameldt',
+                'frameldt': 'ikke-svaret'
+            };
+            
+            const newStatus = statusCycle[currentStatus];
+            const date = new Date(dateKey);
+            
+            if (await updateStatus(date, participant, newStatus)) {
+                // Reload data to show changes
+                const data = await loadData();
+                renderWeeks(data);
+            }
+        }
+
+        function showError(message) {
+            const content = document.querySelector('.content');
+            content.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Initialize
+        async function init() {
+            if (!CONFIG || CONFIG.appsScriptUrl === 'INDSÆT_DIN_APPS_SCRIPT_URL_HER') {
+                showError('⚠️ Google Apps Script er ikke konfigureret endnu.<br><br>Åbn filen <strong>config.js</strong> og indsæt din Web app URL.<br>Se instruktionerne i OPSÆTNING.txt');
+                return;
+            }
+            
+            const data = await loadData();
+            renderWeeks(data);
+        }
+
+        // Load on page load
+        init();
+        
+        // Reload every 30 seconds to show updates from others
+        setInterval(async () => {
+            const data = await loadData();
+            renderWeeks(data);
+        }, 30000);
+    </script>
+</body>
+</html>
