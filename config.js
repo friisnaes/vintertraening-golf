@@ -10,7 +10,7 @@
 // 5. Upload til GitHub sammen med index.html
 //
 // EKSEMPEL:
-// FØR:  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbyv4tD6YGTwQqHEN50MxRIICQTIyHnqnRt6OXj1OJztPyvI_0FLN8OblI79LEQwSmxxd-Q/exec'
+// FØR:  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwyETBWWtswLIblvhReLunWUpnx87VZVqOhWPq2AvdjPcYRdHhFAmmAOuGlt-JRi0j9Kg/exec'
 // EFTER: appsScriptUrl: 'https://script.google.com/macros/s/AKfycby...lang-url.../exec'
 //
 // ═══════════════════════════════════════════════════════════════
