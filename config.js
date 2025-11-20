@@ -16,7 +16,7 @@
 // ═══════════════════════════════════════════════════════════════
 
 const CONFIG = {
-    appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwyETBWWtswLIblvhReLunWUpnx87VZVqOhWPq2AvdjPcYRdHhFAmmAOuGlt-JRi0j9Kg/exec'
+    appsScriptUrl: 'https://script.google.com/macros/s/AKfycbxHW_Zun0AxOBqsje6zEBif9RJLkJAz1NG6aZlOVlYsnCez2gafE839mqkql69GcfwKtQ/exec'
 };
 
 // ═══════════════════════════════════════════════════════════════
