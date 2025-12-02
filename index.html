@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintertræning Golf 2025/26</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a4d2e 0%, #2d5a3d 50%, #1a4d2e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid #d4af37;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .info-bar {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #2d5a3d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        .legend {
+            background: #fff8e1;
+            padding: 15px 30px;
+            border-bottom: 2px solid #ffd54f;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+
+        .legend-box.tilmeldt { background: #4caf50; }
+        .legend-box.frameldt { background: #f44336; }
+        .legend-box.ikke-svaret { background: #9e9e9e; }
+
+        .statistics {
+            background: #fff;
+            padding: 20px 30px;
+            border-bottom: 3px solid #2d5a3d;
+        }
+
+        .statistics h2 {
+            color: #2d5a3d;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stats-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-rank {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #d4af37;
+            min-width: 30px;
+        }
+
+        .stat-name {
+            font-weight: bold;
+            color: #2d5a3d;
+            font-size: 1.1em;
+        }
+
+        .stat-count {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        /* NEW: Extended statistics section */
+        .extended-stats {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .extended-stats h2 {
+            color: #2d5a3d;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .big-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2d5a3d;
+            margin: 5px 0;
+        }
+
+        .stat-card .stat-detail {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .streak-fire {
+            color: #ff6b35;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        /* NEW: Section toggle button */
+        .section-toggle {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .toggle-btn:active {
+            transform: translateY(0);
+        }
+
+        .section-header {
+            font-size: 1.4em;
+            color: #2d5a3d;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .week-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* NEW: Dining event highlight */
+        .week-card.dining-event {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffffff 100%);
+            border: 3px solid #ffa726;
+            box-shadow: 0 4px 12px rgba(255, 167, 38, 0.3);
+        }
+
+        .dining-banner {
+            background: #ff9800;
+            color: white;
+            padding: 8px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .menu-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff8e1;
+            border-radius: 8px;
+            border: 2px solid #ffa726;
+        }
+
+        .menu-header {
+            font-weight: bold;
+            color: #f57c00;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .menu-image {
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .menu-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Modal for menu image */
+        .menu-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+
+        .menu-modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .menu-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .menu-modal-close:hover {
+            color: #ff9800;
+        }
+
+        .menu-footer {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-top: 3px solid #2d5a3d;
+        }
+
+        .menu-footer h2 {
+            color: #2d5a3d;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .menu-footer img {
+            width: 100%;
+            max-width: 800px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .week-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .week-header {
+            border-bottom: 2px solid #4a7c59;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .week-date {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d5a3d;
+        }
+
+        .week-time {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 3px;
+        }
+
+        .participants {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .participant {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .participant:hover {
+            border-color: #2d5a3d;
+        }
+
+        .participant.tilmeldt {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .participant.frameldt {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .participant.ikke-svaret {
+            background: #f5f5f5;
+            color: #757575;
+        }
+
+        .participant-name {
+            font-weight: 500;
+        }
+
+        .participant-status {
+            font-size: 0.85em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛳ Vintertræning Golf 2025/26</h1>
+            <p>Onsdage kl. 19:00-20:00</p>
+        </div>
+
+        <div class="info-bar">
+            <div class="info-item">
+                <strong>📅 Periode</strong>
+                <span>19. nov 2025 - 1. apr 2026</span>
+            </div>
+            <div class="info-item">
+                <strong>🏌️ Træninger</strong>
+                <span id="total-sessions">19</span>
+            </div>
+            <div class="info-item">
+                <strong>👥 Deltagere</strong>
+                <span>9</span>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box tilmeldt"></div>
+                <span>Tilmeldt</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box frameldt"></div>
+                <span>Frameldt</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box ikke-svaret"></div>
+                <span>Ikke svaret</span>
+            </div>
+        </div>
+
+        <div class="statistics">
+            <h2>🏆 Fremmøde (år til dato)</h2>
+            <div class="stats-list" id="stats-list">
+                <!-- Statistics will be inserted here -->
+            </div>
+        </div>
+
+        <!-- NEW: Extended Statistics -->
+        <div class="extended-stats">
+            <h2>📊 Udvidede Statistikker</h2>
+            <div class="stats-grid" id="extended-stats-grid">
+                <!-- Extended stats will be inserted here -->
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="loading" id="loading">
+                Indlæser data... ⛳
+            </div>
+            
+            <!-- NEW: Upcoming sessions section -->
+            <div id="upcoming-section" style="display: none;">
+                <div class="section-header">📅 Kommende Træninger</div>
+                <div class="week-grid" id="upcoming-grid">
+                    <!-- Upcoming weeks will be inserted here -->
+                </div>
+                
+                <div class="section-toggle">
+                    <button class="toggle-btn" onclick="togglePastSessions()">
+                        <span id="toggle-text">📜 Vis alle træninger</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NEW: Past sessions section (hidden by default) -->
+            <div id="past-section" style="display: none;">
+                <div class="section-header">📜 Tidligere Træninger</div>
+                <div class="week-grid" id="past-grid">
+                    <!-- Past weeks will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Section -->
+        <div class="menu-footer">
+            <h2>🍽️ Menukort - Eagle Golf Center</h2>
+            <img src="menu.jpeg" alt="Eagle Golf Center Menu">
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // Configuration is loaded from config.js
+
+        const participants = [
+            'Jan', 'Torben', 'Jes', 'Kim', 
+            'Henrik', 'Morten', 'Thomas', 'Søren', 'Mystery guest'
+        ];
+
+        let showPastSessions = false;
+
+        // Toggle past sessions visibility
+        window.togglePastSessions = function() {
+            showPastSessions = !showPastSessions;
+            const pastSection = document.getElementById('past-section');
+            const toggleText = document.getElementById('toggle-text');
+            
+            if (showPastSessions) {
+                pastSection.style.display = 'block';
+                toggleText.textContent = '📅 Skjul tidligere træninger';
+            } else {
+                pastSection.style.display = 'none';
+                toggleText.textContent = '📜 Vis alle træninger';
+            }
+        }
+
+        // Check if date is 2nd Wednesday of the month
+        function isSecondWednesday(date) {
+            if (date.getDay() !== 3) return false; // Not a Wednesday
+            
+            const dayOfMonth = date.getDate();
+            // 2nd Wednesday falls between 8th and 14th
+            return dayOfMonth >= 8 && dayOfMonth <= 14;
+        }
+
+        // Generate all Wednesdays from start to end date
+        function generateWednesdays(startDate, endDate) {
+            const wednesdays = [];
+            let current = new Date(startDate);
+            
+            // Find first Wednesday
+            while (current.getDay() !== 3) {
+                current.setDate(current.getDate() + 1);
+            }
+            
+            while (current <= endDate) {
+                wednesdays.push(new Date(current));
+                current.setDate(current.getDate() + 7);
+            }
+            
+            return wednesdays;
+        }
+
+        function formatDate(date) {
+            const months = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 
+                          'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+            return `${date.getDate()}. ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function dateToKey(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Google Apps Script functions
+        async function loadData() {
+            try {
+                const url = `${CONFIG.appsScriptUrl}?action=read&t=${Date.now()}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Kunne ikke hente data fra Google Sheets');
+                }
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Kunne ikke indlæse data. Tjek din internetforbindelse.');
+                return {};
+            }
+        }
+
+        async function updateStatus(date, participant, newStatus) {
+            try {
+                const dateKey = dateToKey(date);
+                
+                const url = `${CONFIG.appsScriptUrl}?action=update&date=${dateKey}&participant=${encodeURIComponent(participant)}&status=${newStatus}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Kunne ikke gemme ændring');
+                }
+                
+                const result = await response.json();
+                
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Kunne ikke gemme ændring. Prøv igen.');
+                return false;
+            }
+        }
+
+        // Calculate streak for a participant
+        function calculateStreak(data, wednesdays, participant) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            let currentStreak = 0;
+            let maxStreak = 0;
+            let tempStreak = 0;
+            
+            // Go through past dates in chronological order
+            const pastWednesdays = wednesdays.filter(d => d < today).sort((a, b) => a - b);
+            
+            for (let i = pastWednesdays.length - 1; i >= 0; i--) {
+                const date = pastWednesdays[i];
+                const dateKey = dateToKey(date);
+                const weekData = data[dateKey] || {};
+                const status = weekData[participant];
+                
+                if (status === 'tilmeldt') {
+                    tempStreak++;
+                    if (i === pastWednesdays.length - 1) {
+                        currentStreak = tempStreak;
+                    }
+                } else {
+                    if (tempStreak > maxStreak) {
+                        maxStreak = tempStreak;
+                    }
+                    tempStreak = 0;
+                }
+            }
+            
+            maxStreak = Math.max(maxStreak, tempStreak);
+            
+            return { current: currentStreak, max: maxStreak };
+        }
+
+        // Calculate cancellation rate
+        function calculateCancellationRate(data, wednesdays, participant) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            let totalResponses = 0;
+            let cancellations = 0;
+            
+            wednesdays.forEach(date => {
+                if (date < today) {
+                    const dateKey = dateToKey(date);
+                    const weekData = data[dateKey] || {};
+                    const status = weekData[participant];
+                    
+                    if (status === 'tilmeldt' || status === 'frameldt') {
+                        totalResponses++;
+                        if (status === 'frameldt') {
+                            cancellations++;
+                        }
+                    }
+                }
+            });
+            
+            if (totalResponses === 0) return 0;
+            return Math.round((cancellations / totalResponses) * 100);
+        }
+
+        // Render extended statistics
+        function renderExtendedStatistics(data, wednesdays) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Find participant with longest current streak
+            let longestStreakParticipant = null;
+            let longestStreakValue = 0;
+            
+            participants.forEach(participant => {
+                const streak = calculateStreak(data, wednesdays, participant);
+                if (streak.current > longestStreakValue) {
+                    longestStreakValue = streak.current;
+                    longestStreakParticipant = participant;
+                }
+            });
+            
+            // Find participant with lowest cancellation rate (min 3 responses)
+            let bestAttendanceParticipant = null;
+            let bestAttendanceRate = 101;
+            
+            participants.forEach(participant => {
+                const pastWednesdays = wednesdays.filter(d => d < today);
+                let responses = 0;
+                
+                pastWednesdays.forEach(date => {
+                    const dateKey = dateToKey(date);
+                    const weekData = data[dateKey] || {};
+                    if (weekData[participant] === 'tilmeldt' || weekData[participant] === 'frameldt') {
+                        responses++;
+                    }
+                });
+                
+                if (responses >= 3) {
+                    const rate = calculateCancellationRate(data, wednesdays, participant);
+                    if (rate < bestAttendanceRate) {
+                        bestAttendanceRate = rate;
+                        bestAttendanceParticipant = participant;
+                    }
+                }
+            });
+            
+            // Calculate average attendance per session
+            const pastWednesdays = wednesdays.filter(d => d < today);
+            let totalAttendance = 0;
+            
+            pastWednesdays.forEach(date => {
+                const dateKey = dateToKey(date);
+                const weekData = data[dateKey] || {};
+                
+                participants.forEach(participant => {
+                    if (weekData[participant] === 'tilmeldt') {
+                        totalAttendance++;
+                    }
+                });
+            });
+            
+            const avgAttendance = pastWednesdays.length > 0 
+                ? (totalAttendance / pastWednesdays.length).toFixed(1) 
+                : 0;
+            
+            const grid = document.getElementById('extended-stats-grid');
+            
+            let html = `
+                <div class="stat-card">
+                    <h3>🔥 Længste Streak</h3>
+                    <div class="big-number streak-fire">${longestStreakValue}</div>
+                    <div class="stat-detail">${longestStreakParticipant || '—'}</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>⭐ Bedste Fremmøde</h3>
+                    <div class="big-number">${bestAttendanceRate < 101 ? bestAttendanceRate + '%' : '—'}</div>
+                    <div class="stat-detail">${bestAttendanceParticipant ? bestAttendanceParticipant + ' (afbud-rate)' : 'Ikke nok data'}</div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>👥 Gns. Fremmøde</h3>
+                    <div class="big-number">${avgAttendance}</div>
+                    <div class="stat-detail">Per træning</div>
+                </div>
+            `;
+            
+            grid.innerHTML = html;
+        }
+
+        function renderStatistics(data, wednesdays) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Count tilmeldinger for each person (only past dates)
+            const counts = {};
+            participants.forEach(p => counts[p] = 0);
+            
+            wednesdays.forEach(date => {
+                if (date < today) {
+                    const dateKey = dateToKey(date);
+                    const weekData = data[dateKey] || {};
+                    
+                    participants.forEach(name => {
+                        if (weekData[name] === 'tilmeldt') {
+                            counts[name]++;
+                        }
+                    });
+                }
+            });
+            
+            // Sort by count (descending)
+            const sorted = Object.entries(counts)
+                .sort((a, b) => b[1] - a[1])
+                .filter(([name, count]) => count > 0); // Only show people with at least 1
+            
+            // Render
+            const statsList = document.getElementById('stats-list');
+            if (sorted.length === 0) {
+                statsList.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">Ingen træninger afholdt endnu</div>';
+            } else {
+                statsList.innerHTML = sorted.map(([name, count], index) => {
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+                    return `
+                        <div class="stat-item">
+                            <div class="stat-rank">${medal}</div>
+                            <div class="stat-name">${name}</div>
+                            <div class="stat-count">${count} ✓</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function renderWeekCard(date, index, data, isPast) {
+            const dateKey = dateToKey(date);
+            const weekData = data[dateKey] || {};
+            
+            // Check if deadline has passed (24 hours before training at 19:00)
+            const now = new Date();
+            const trainingDateTime = new Date(date);
+            trainingDateTime.setHours(19, 0, 0, 0); // Set to training time 19:00
+            const deadline = new Date(trainingDateTime.getTime() - (24 * 60 * 60 * 1000)); // 24 hours before
+            const isPastDeadline = now > deadline;
+            
+            // Check if dining event
+            const isDiningEvent = isSecondWednesday(date);
+            
+            const card = document.createElement('div');
+            card.className = 'week-card' + (isDiningEvent ? ' dining-event' : '');
+            
+            let tilmeldt = 0;
+            let frameldt = 0;
+            let ikkeSvaret = 0;
+            
+            const participantHTML = participants.map(name => {
+                const status = weekData[name] || 'ikke-svaret';
+                
+                if (status === 'tilmeldt') tilmeldt++;
+                else if (status === 'frameldt') frameldt++;
+                else ikkeSvaret++;
+                
+                const statusText = {
+                    'tilmeldt': '✓',
+                    'frameldt': '✗',
+                    'ikke-svaret': '?'
+                }[status];
+                
+                const clickHandler = isPastDeadline ? '' : `onclick="toggleStatus('${dateKey}', '${name}', '${status}')"`;
+                const cursorStyle = isPastDeadline ? 'style="cursor: not-allowed; opacity: 0.7;"' : '';
+                
+                return `
+                    <div class="participant ${status}" 
+                         ${clickHandler}
+                         ${cursorStyle}
+                         title="${isPastDeadline ? '⏱️ Deadline overskredet (kl. 19:00 dagen før)' : 'Klik for at ændre status'}">
+                        <span class="participant-name">${name}</span>
+                        <span class="participant-status">${statusText}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            let cardHTML = '';
+            
+            if (isDiningEvent) {
+                cardHTML += '<div class="dining-banner">🍽️ Fællesspisning efter træning kl. 20:00</div>';
+            }
+            
+            cardHTML += `
+                <div class="week-header">
+                    <div class="week-date">Onsdag ${formatDate(date)} ${isPastDeadline ? '🔒' : ''}</div>
+                    <div class="week-time">kl. 19:00-20:00 ${isPastDeadline ? '<span style="color:#f44336;font-size:0.9em;">• Deadline overskredet</span>' : ''}</div>
+                </div>
+                <div class="participants">
+                    ${participantHTML}
+                </div>
+                <div class="stats">
+                    <span>✓ ${tilmeldt}</span>
+                    <span>✗ ${frameldt}</span>
+                    <span>? ${ikkeSvaret}</span>
+                </div>
+            `;
+            
+            card.innerHTML = cardHTML;
+            return card;
+        }
+
+        function renderWeeks(data) {
+            const startDate = new Date(2025, 10, 19); // Nov 19, 2025
+            const endDate = new Date(2026, 3, 1);     // Apr 1, 2026
+            const wednesdays = generateWednesdays(startDate, endDate);
+            
+            document.getElementById('total-sessions').textContent = wednesdays.length;
+            
+            // Calculate and render statistics
+            renderStatistics(data, wednesdays);
+            renderExtendedStatistics(data, wednesdays);
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Split into upcoming and past
+            const upcomingWednesdays = wednesdays.filter(d => d >= today);
+            const pastWednesdays = wednesdays.filter(d => d < today);
+            
+            // Render upcoming sessions
+            const upcomingGrid = document.getElementById('upcoming-grid');
+            upcomingGrid.innerHTML = '';
+            
+            if (upcomingWednesdays.length === 0) {
+                upcomingGrid.innerHTML = '<div style="text-align:center;color:#999;padding:40px;grid-column:1/-1;">Ingen kommende træninger</div>';
+            } else {
+                upcomingWednesdays.forEach((date, index) => {
+                    upcomingGrid.appendChild(renderWeekCard(date, index, data, false));
+                });
+            }
+            
+            // Render past sessions
+            const pastGrid = document.getElementById('past-grid');
+            pastGrid.innerHTML = '';
+            
+            if (pastWednesdays.length === 0) {
+                pastGrid.innerHTML = '<div style="text-align:center;color:#999;padding:40px;grid-column:1/-1;">Ingen tidligere træninger endnu</div>';
+            } else {
+                // Show in reverse chronological order (most recent first)
+                [...pastWednesdays].reverse().forEach((date, index) => {
+                    pastGrid.appendChild(renderWeekCard(date, index, data, true));
+                });
+            }
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('upcoming-section').style.display = 'block';
+        }
+
+        window.toggleStatus = async function(dateKey, participant, currentStatus) {
+            // Check deadline (exactly 24 hours before training at 19:00)
+            const trainingDate = new Date(dateKey);
+            trainingDate.setHours(19, 0, 0, 0); // Set to training time 19:00
+            const now = new Date();
+            const deadline = new Date(trainingDate.getTime() - (24 * 60 * 60 * 1000)); // 24 hours before
+            
+            if (now > deadline) {
+                alert('⏱️ Deadline overskredet!\n\nDu kan ikke ændre tilmelding efter kl. 19:00 dagen før træningen (24 timer før).\n\nDeadline var: ' + deadline.toLocaleString('da-DK'));
+                return;
+            }
+            
+            const statusCycle = {
+                'ikke-svaret': 'tilmeldt',
+                'tilmeldt': 'frameldt',
+                'frameldt': 'ikke-svaret'
+            };
+            
+            const newStatus = statusCycle[currentStatus];
+            
+            if (await updateStatus(date, participant, newStatus)) {
+                // Reload data to show changes
+                const data = await loadData();
+                renderWeeks(data);
+            }
+        }
+
+        function showError(message) {
+            const content = document.querySelector('.content');
+            content.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Initialize
+        async function init() {
+            if (!CONFIG || CONFIG.appsScriptUrl === 'INDSÆT_DIN_APPS_SCRIPT_URL_HER') {
+                showError('⚠️ Google Apps Script er ikke konfigureret endnu.<br><br>Åbn filen <strong>config.js</strong> og indsæt din Web app URL.<br>Se instruktionerne i OPSÆTNING.txt');
+                return;
+            }
+            
+            const data = await loadData();
+            renderWeeks(data);
+        }
+
+        // Load on page load
+        init();
+        
+        // Reload every 30 seconds to show updates from others
+        setInterval(async () => {
+            const data = await loadData();
+            renderWeeks(data);
+        }, 30000);
+    </script>
+</body>
+</html>
