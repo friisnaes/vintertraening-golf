@@ -876,13 +876,6 @@
             const dateKey = dateToKey(date);
             const weekData = data[dateKey] || {};
             
-            // Check if deadline has passed (24 hours before training at 19:00)
-            const now = new Date();
-            const trainingDateTime = new Date(date);
-            trainingDateTime.setHours(19, 0, 0, 0); // Set to training time 19:00
-            const deadline = new Date(trainingDateTime.getTime() - (24 * 60 * 60 * 1000)); // 24 hours before
-            const isPastDeadline = now > deadline;
-            
             // Check if dining event
             const isDiningEvent = isSecondWednesday(date);
             
@@ -906,14 +899,10 @@
                     'ikke-svaret': '?'
                 }[status];
                 
-                const clickHandler = isPastDeadline ? '' : `onclick="toggleStatus('${dateKey}', '${name}', '${status}')"`;
-                const cursorStyle = isPastDeadline ? 'style="cursor: not-allowed; opacity: 0.7;"' : '';
-                
                 return `
                     <div class="participant ${status}" 
-                         ${clickHandler}
-                         ${cursorStyle}
-                         title="${isPastDeadline ? '⏱️ Deadline overskredet (kl. 19:00 dagen før)' : 'Klik for at ændre status'}">
+                         onclick="toggleStatus('${dateKey}', '${name}', '${status}')"
+                         title="Klik for at ændre status">
                         <span class="participant-name">${name}</span>
                         <span class="participant-status">${statusText}</span>
                     </div>
@@ -928,8 +917,8 @@
             
             cardHTML += `
                 <div class="week-header">
-                    <div class="week-date">Onsdag ${formatDate(date)} ${isPastDeadline ? '🔒' : ''}</div>
-                    <div class="week-time">kl. 19:00-20:00 ${isPastDeadline ? '<span style="color:#f44336;font-size:0.9em;">• Deadline overskredet</span>' : ''}</div>
+                    <div class="week-date">Onsdag ${formatDate(date)}</div>
+                    <div class="week-time">kl. 19:00-20:00</div>
                 </div>
                 <div class="participants">
                     ${participantHTML}
@@ -993,17 +982,6 @@
         }
 
         window.toggleStatus = async function(dateKey, participant, currentStatus) {
-            // Check deadline (exactly 24 hours before training at 19:00)
-            const trainingDate = new Date(dateKey);
-            trainingDate.setHours(19, 0, 0, 0); // Set to training time 19:00
-            const now = new Date();
-            const deadline = new Date(trainingDate.getTime() - (24 * 60 * 60 * 1000)); // 24 hours before
-            
-            if (now > deadline) {
-                alert('⏱️ Deadline overskredet!\n\nDu kan ikke ændre tilmelding efter kl. 19:00 dagen før træningen (24 timer før).\n\nDeadline var: ' + deadline.toLocaleString('da-DK'));
-                return;
-            }
-            
             const statusCycle = {
                 'ikke-svaret': 'tilmeldt',
                 'tilmeldt': 'frameldt',
@@ -1011,6 +989,7 @@
             };
             
             const newStatus = statusCycle[currentStatus];
+            const date = new Date(dateKey);
             
             if (await updateStatus(date, participant, newStatus)) {
                 // Reload data to show changes
